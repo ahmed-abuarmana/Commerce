@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'auctions/categories.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2>Categories</h2>
+    <br>
+    <ul>
+        {% for categorie in categories %}
+            <li><a href="{% url 'categories' %}?category={{ categorie }}">{{ categorie }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if categorie_filter %}
+        {% for categorie in categorie_filter %}
+        <a href="{% url 'auctions' categorie.title %}">
+            <div class="auction-item">
+                <img src="{{ categorie.imageURL }}" alt="{{ categorie.title }}">
+                <div class="categorie-details">
+                    <h3>{{ categorie.title }}</h3>
+                    <h4><strong>Price: </strong> {{ categorie.startingBid }}$</h4>
+                    <p>{{ categorie.created_at }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    
+    {% else %}
+        <h3>Select one of categories at the top</h3>
+    {% endif %}
+{% endblock %}

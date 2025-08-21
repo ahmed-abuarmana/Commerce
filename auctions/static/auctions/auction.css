@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auction-item {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.auction-item img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 15px auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.auction-item p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.auction-item  p strong {
+    color: #4CAF50;
+    font-size: 18px;
+}
+
+.created-by {
+    color: blue;
+}
+
+button {
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #fff;
+    border-color: #a2a2a2;
+}
+
+.watchlist-button {
+    background-color: #a2a2a2;
+    margin-bottom: 10px;
+}
+
+.bid-button {
+    background-color: rgb(73, 73, 247);
+    width: 130px;
+    height: 40px;
+}
+input {
+    height: 40px;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.auction-container {
+    width: 70%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+.comment-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.comment-form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.comment-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.comment-btn:hover {
+    background-color: #0056b3;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comments-section h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.comment-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.comment-user {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+.comment-text {
+    margin: 0;
+    color: #444;
+}

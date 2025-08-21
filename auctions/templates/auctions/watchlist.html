@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'auctions/watchlist.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1>WatchList</h1>
+
+    {% if items %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert 
+                            {% if message.tags %}
+                                alert-{{ message.tags }}
+                            {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% for auc in items %}
+            <div class="auction-item">
+                <img src="{{ auc.imageURL }}" alt="{{ auc.title }}">
+                <div class="auction-details">
+                    <h3>{{ auc.title }}</h3>
+                    <h4><strong>Price: </strong> {{ auc.startingBid }}$</h4>
+                    <p>{{ auc.created_at }}</p>
+                    <form action="{% url 'remove_from_watchlist' auc.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="remove-btn">Remove from WatchList</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+        
+    {% else %}
+        <p class="empty-list">Your watchlist is empty.</p>
+    {% endif %}
+
+{% endblock body %}

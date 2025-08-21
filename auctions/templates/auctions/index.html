@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'auctions/activeListings.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for auc in auctions %}
+        {% if auc.active %}
+            <a href="{% url 'auctions' auc.title %}">
+                <div class="auction-item">
+                    <img src="{{ auc.imageURL }}" alt="{{ auc.title }}">
+                    <div class="auction-details">
+                        <h3>{{ auc.title }}</h3>
+                        <h4><strong>Price: </strong> {{ auc.startingBid }}$</h4>
+                        <p>{{ auc.created_at }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'auctions/winner.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="winner-container">
+    <div class="winner-card">
+        <h1 class="winner-title">🏆 Auction Winner 🏆</h1>
+        
+        {% if winner_user %}
+        <div class="winner-details">
+            <p><strong>Winner:</strong> {{ winner_user.username }}</p>
+            <p><strong>Auction Title:</strong> {{ auction.title }}</p>
+            <p><strong>Starting Price:</strong> ${{ auction.startingBid }}</p>
+            <p><strong>Final Price:</strong> ${{ auction.current_price }}</p>
+            <p><strong>Started At:</strong> {{ auction.created_at|date:"Y-m-d H:i" }}</p>
+            <p><strong>Total Bids:</strong> {{ auction.number_of_bids }}</p>
+        </div>
+        {% else %}
+        <div class="no-bids">
+            <p>No bids were placed on this auction.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="back-button">
+        <a href="{% url 'index' %}">⬅ Back to Active auctions</a>
+    </div>
+</div>
+{% endblock %}

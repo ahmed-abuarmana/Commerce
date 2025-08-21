@@ -1,0 +1,91 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'auctions/auction.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags %}
+                    alert-{{ message.tags }}
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% for auc in auction_details %}
+        <div class="auction-item">
+            {% if user.is_authenticated %}
+                <form action= "{% url 'add_to_watchlist' auc.id%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="watchlist-button">WatchList</button>
+                </form>
+            {% endif %}
+
+            {% if user.is_authenticated and auc.createdBy == current_user %}
+                <form action= "{% url 'remove_from_activeListing' auc.id%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="watchlist-button">Close this auction</button>
+                </form>
+            {% endif %}
+            <h2>Listing: {{ auc.title }}</h2>
+            <img src="{{ auc.imageURL }}" alt="{{ auc.title }}">
+            <p>{{ auc.description }}</p>
+
+            <p><strong>{{ auc.current_price }}$</strong></p>
+            
+            {% if cond1 %}
+                <p>{{ auc.number_of_bids }} bid(s) so far. Your bid is the current bid</p>
+            {% else %}
+                {% if last_bid_user %}
+                    <p>{{ auc.number_of_bids }} bid(s) so far. This bid is for {{ last_bid_user }}</p>
+                {% else %}
+                    <p>{{ auc.number_of_bids }} bid(s) so far. Get first bid</p>
+                {% endif %}
+            {% endif %}
+            
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'place_bid' auc.id %}">
+                    {% csrf_token %}
+                    <input type="number" name="bid" required>
+                    <button type="submit" class="bid-button">Place Bid</button>
+                </form>
+            {% endif %}
+            <hr>
+            <h2>Details</h2>
+            <ul>
+                <li>Listed by: <strong class="created-by">{{ auc.createdBy }}</strong></li>
+                <li>Category: {{ auc.category }}</li>
+            </ul>
+            
+            <hr>
+            <h2>Comments</h2>
+            
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'add_comment' auc.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="comment" required>
+                    <button type="submit" class="bid-button">Add comment</button>
+                </form>
+            {% endif %}
+
+            <div class="comments-section">
+                <h3>Comments:</h3>
+                {% if comments %}
+                    {% for c in comments %}
+                        <div class="comment-card">
+                            <p class="comment-user">{{ c.user.username }}: </p>
+                            <p class="comment-text">"{{ c.comment }}"</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No comments yet.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}
